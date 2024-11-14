@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Login Page</title>
+  <style>
+    /* CSS untuk tampilan responsif dan interaktif */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+    }
+    .login-container {
+      background-color: #fff;
+      padding: 2em;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .login-container:hover {
+      transform: scale(1.02);
+    }
+    h2 {
+      margin-bottom: 1.5em;
+      color: #333;
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.8em;
+      margin: 0.5em 0;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      transition: border-color 0.3s;
+    }
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 0.8em;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 1em;
+    }
+    @media (max-width: 600px) {
+      .login-container {
+        padding: 1.5em;
+      }
+      h2 {
+        font-size: 1.5em;
+      }
+      input[type="text"],
+      input[type="password"],
+      button {
+        font-size: 1em;
+      }
+    }
+  </style>
+  <!-- Menambahkan pustaka CryptoJS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+    <div class="error" id="error-message"></div>
+  </div>
+
+  <script>
+    // Username dan password yang akan dicek
+    const correctUsername = "admin";
+    const correctPasswordHash = "202cb962ac59075b964b07152d234b70"; // Hash dari 'test'
+
+    // Fungsi hashing menggunakan CryptoJS MD5
+    function md5(string) {
+      return CryptoJS.MD5(string).toString();
+    }
+
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const errorMessage = document.getElementById("error-message");
+
+      // Periksa username
+      if (username !== correctUsername) {
+        errorMessage.textContent = "Username atau password salah";
+        return;
+      }
+
+      // Enkripsi password dan cek
+      const passwordHash = md5(password);
+      if (passwordHash === correctPasswordHash) {
+        errorMessage.textContent = "";
+        alert("Login berhasil!");
+
+        // Pengalihan ke halaman lain (ganti URL sesuai kebutuhan)
+        window.location.href = "admin.html";
+      } else {
+        errorMessage.textContent = "Username atau password salah";
+      }
+    }
+  </script>
+</body>
+</html>
