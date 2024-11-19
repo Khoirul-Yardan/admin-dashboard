@@ -12,12 +12,12 @@
 		var options = {
 			  series: [
 				{
-					name: 'Income',
+					name: 'first day',
 					data: [50, 18, 70, 40],
 					//radius: 12,	
 				}, 
 				{
-				  name: 'Outcome',
+				  name: 'last day',
 				  data: [80, 40, 55, 20]
 				}, 
 				
@@ -114,7 +114,7 @@
 			tooltip: {
 			  y: {
 				formatter: function (val) {
-				  return "$ " + val + " thousands"
+				  return "" + val + " people"
 				}
 			  }
 			},
@@ -145,12 +145,12 @@
 		var options = {
 			  series: [
 				{
-					name: 'Income',
+					name: 'first day',
 					data: [50, 18, 70, 40, 90, 50],
 					//radius: 12,	
 				}, 
 				{
-				  name: 'Outcome',
+				  name: 'last day',
 				  data: [80, 40, 55, 20, 50, 70]
 				}, 
 				
@@ -247,7 +247,7 @@
 			tooltip: {
 			  y: {
 				formatter: function (val) {
-				  return "$ " + val + " thousands"
+				  return " " + val + " People"
 				}
 			  }
 			},
