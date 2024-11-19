@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crud</title>
+  <title>CRUD Dashboard</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f9;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #6a11cb, #2575fc);
       margin: 0;
       padding: 0;
       display: flex;
@@ -19,24 +19,28 @@
     }
 
     .container {
-      width: 90%;
-      max-width: 600px;
+      width: 95%;
+      max-width: 700px;
       background: #fff;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     h1 {
       text-align: center;
-      margin-bottom: 20px;
       color: #333;
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .data-list {
       display: flex;
       flex-direction: column;
       gap: 15px;
+      margin-bottom: 20px;
     }
 
     .data-item {
@@ -44,9 +48,15 @@
       justify-content: space-between;
       align-items: center;
       background: #f9f9f9;
-      padding: 10px 15px;
+      padding: 12px 18px;
       border-radius: 8px;
       border: 1px solid #ddd;
+      transition: transform 0.3s ease;
+    }
+
+    .data-item:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .data-item span {
@@ -58,12 +68,17 @@
       color: #000;
     }
 
+    .btn-container {
+      text-align: center;
+    }
+
     button {
-      padding: 8px 12px;
+      padding: 10px 15px;
       font-size: 14px;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
 
     button.btn-edit {
@@ -75,131 +90,120 @@
       background: #0056b3;
     }
 
+    button.btn-add {
+      background: #28a745;
+      color: #fff;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    button.btn-add:hover {
+      background: #218838;
+    }
+
+    a.custom-btn {
+      background: #6c757d;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    a.custom-btn:hover {
+      background: #565e64;
+    }
+
     .swal2-popup {
-    padding: 20px;
-    font-size: 16px;
-    border-radius: 10px;
-  }
-
-  .swal2-html-container {
-    text-align: left;
-  }
-
-  label {
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 5px;
-    display: block;
-    color: #333;
-  }
-
-  .swal2-input {
-    font-size: 14px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-bottom: 15px;
-    width: calc(100% - 20px);
-  }
-
-  .swal2-actions {
-    justify-content: center;
-    margin-top: 20px;
-  }
-
-  .swal2-confirm {
-    background-color: #6c63ff;
-    color: #fff;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    transition: background-color 0.3s ease;
-  }
-
-  .swal2-confirm:hover {
-    background-color: #5846d6;
-  }
-
-  .swal2-cancel {
-    background-color: #6c757d;
-    color: #fff;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    margin-left: 10px;
-    transition: background-color 0.3s ease;
-  }
-
-  .swal2-cancel:hover {
-    background-color: #565e64;
-  }
-
-    @media screen and (max-width: 480px) {
-      .data-item {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      button {
-        margin-top: 10px;
-      }
+      padding: 20px;
+      font-size: 16px;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Data Dashboard</h1>
-    <div class="data-list">
-      <div class="data-item" data-title="Viewing Users" data-value="10">
+    <h1>CRUD Dashboard</h1>
+    <div class="btn-container">
+      <button class="btn-add" onclick="addData()">Add New Data</button>
+    </div>
+    <div class="data-list" id="dataList">
+      <div class="data-item" data-title="Viewing Users" data-value="120">
         <span>Viewing Users: <strong>120</strong></span>
         <button class="btn-edit" onclick="editData(this)">Edit</button>
       </div>
-      <div class="data-item" data-title="Experience" data-value="20">
-        <span>Experience: <strong>6</strong></span>
+      <div class="data-item" data-title="Viewing Users" data-value="120">
+        <span>experience: <strong>6</strong></span>
         <button class="btn-edit" onclick="editData(this)">Edit</button>
       </div>
-      <div class="data-item" data-title="Award or Certificate" data-value="5">
-        <span>Award or Certificate: <strong>9</strong></span>
+      <div class="data-item" data-title="Viewing Users" data-value="120">
+        <span>award or certifica: <strong>9</strong></span>
         <button class="btn-edit" onclick="editData(this)">Edit</button>
       </div>
-      <div class="data-item" data-title="Total Languages Studied" data-value="3">
-        <span>Total Languages Studied: <strong>10</strong></span>
+      <div class="data-item" data-title="Viewing Users" data-value="120">
+        <span>total languages ​​studied: <strong>10</strong></span>
         <button class="btn-edit" onclick="editData(this)">Edit</button>
       </div>
-      <a href="admin.html">
-      <button class="custom-btn btn-15">Kembali</button>
-      </a>
+    </div>
+    <div class="btn-container">
+      <a href="admin.html" class="custom-btn">Kembali</a>
     </div>
   </div>
 
   <script>
     // Function to edit data
     function editData(button) {
-      // Get parent container of clicked button
       const dataItem = button.parentElement;
-
-      // Extract current title and value
       const currentTitle = dataItem.getAttribute("data-title");
       const currentValue = dataItem.getAttribute("data-value");
 
-      // Show SweetAlert form for editing
       Swal.fire({
         title: "Edit Data",
         html: `
           <div style="text-align: left;">
-            <label for="newTitle" style="margin-bottom: 5px; display: block; font-weight: bold;">Title:</label>
-            <input id="newTitle" class="swal2-input" type="text" value="${currentTitle}" style="margin-bottom: 15px;">
-            <label for="newValue" style="margin-bottom: 5px; display: block; font-weight: bold;">Value:</label>
-            <input id="newValue" class="swal2-input" type="number" value="${currentValue}">
+            <label>Title:</label>
+            <input id="editTitle" class="swal2-input" type="text" value="${currentTitle}">
+            <label>Value:</label>
+            <input id="editValue" class="swal2-input" type="number" value="${currentValue}">
           </div>
         `,
-        focusConfirm: false,
         showCancelButton: true,
         confirmButtonText: "Save",
+        cancelButtonText: "Cancel",
+        preConfirm: () => {
+          const editTitle = document.getElementById("editTitle").value.trim();
+          const editValue = document.getElementById("editValue").value.trim();
+          if (!editTitle || !editValue) {
+            Swal.showValidationMessage("Please fill out both fields.");
+            return false;
+          }
+          return { editTitle, editValue };
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const { editTitle, editValue } = result.value;
+          dataItem.setAttribute("data-title", editTitle);
+          dataItem.setAttribute("data-value", editValue);
+          dataItem.querySelector("span").innerHTML = `${editTitle}: <strong>${editValue}</strong>`;
+          Swal.fire("Updated!", "Data has been updated successfully.", "success");
+        }
+      });
+    }
+
+    // Function to add data
+    function addData() {
+      Swal.fire({
+        title: "Add New Data",
+        html: `
+          <div style="text-align: left;">
+            <label>Title:</label>
+            <input id="newTitle" class="swal2-input" type="text">
+            <label>Value:</label>
+            <input id="newValue" class="swal2-input" type="number">
+          </div>
+        `,
+        showCancelButton: true,
+        confirmButtonText: "Add",
         cancelButtonText: "Cancel",
         preConfirm: () => {
           const newTitle = document.getElementById("newTitle").value.trim();
@@ -214,18 +218,19 @@
         if (result.isConfirmed) {
           const { newTitle, newValue } = result.value;
 
-          // Update DOM
-          dataItem.setAttribute("data-title", newTitle);
-          dataItem.setAttribute("data-value", newValue);
-          dataItem.querySelector("span").innerHTML = `${newTitle}: <strong>${newValue}</strong>`;
+          // Add new data to the list
+          const dataList = document.getElementById("dataList");
+          const newItem = document.createElement("div");
+          newItem.classList.add("data-item");
+          newItem.setAttribute("data-title", newTitle);
+          newItem.setAttribute("data-value", newValue);
+          newItem.innerHTML = `
+            <span>${newTitle}: <strong>${newValue}</strong></span>
+            <button class="btn-edit" onclick="editData(this)">Edit</button>
+          `;
+          dataList.appendChild(newItem);
 
-          // Show success alert
-          Swal.fire({
-            icon: "success",
-            title: "Updated!",
-            text: "Data has been updated successfully.",
-            confirmButtonText: "OK"
-          });
+          Swal.fire("Added!", "New data has been added successfully.", "success");
         }
       });
     }
